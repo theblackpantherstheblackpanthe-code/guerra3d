@@ -349,7 +349,7 @@ body.matrix{--azul:#00ff88;--azul2:#7dffb8}
 <body>
 <div class="bg-grid"></div>
 
-<div class="ticker"><span>🚚 Enviamos para todo o Brasil &nbsp;•&nbsp; 💠 Pagamento via Pix ou débito &nbsp;•&nbsp; 🖨️ Peças impressas em 3D com qualidade &nbsp;•&nbsp; 💬 Atendimento pelo WhatsApp das 13h às 19h</span></div>
+<div class="ticker"><span>🚚 Enviamos para todo o Brasil &nbsp;•&nbsp; 💠 Pagamento via Pix ou cartão &nbsp;•&nbsp; 🖨️ Peças impressas em 3D com qualidade &nbsp;•&nbsp; 💬 Atendimento pelo WhatsApp das 13h às 19h</span></div>
 
 <header class="top" id="top">
   <div class="wrap nav">
@@ -378,7 +378,7 @@ body.matrix{--azul:#00ff88;--azul2:#7dffb8}
       </div>
       <div class="stats">
         <div><b>27</b><small>estados atendidos</small></div>
-        <div><b>Pix</b><small>ou débito</small></div>
+        <div><b>Pix</b><small>ou cartão</small></div>
         <div><b>13h–19h</b><small>atendimento</small></div>
       </div>
     </div>
@@ -450,7 +450,7 @@ body.matrix{--azul:#00ff88;--azul2:#7dffb8}
         <ol class="pers-passos">
           <li><b>1</b>Conte sua ideia no formulário.</li>
           <li><b>2</b>Enviamos o orçamento pelo WhatsApp.</li>
-          <li><b>3</b>Aprovou? Pagamento via Pix ou débito.</li>
+          <li><b>3</b>Aprovou? Pagamento via Pix ou cartão.</li>
           <li><b>4</b>Imprimimos e enviamos para todo o Brasil.</li>
         </ol>
         <p class="pers-obs">📷 Tem uma foto ou desenho de referência? Mande no WhatsApp junto com o pedido.</p>
@@ -489,7 +489,7 @@ body.matrix{--azul:#00ff88;--azul2:#7dffb8}
       <div class="step reveal"><span class="ic">🛒</span><h4>Escolha</h4><p>Adicione os produtos ao carrinho.</p></div>
       <div class="step reveal"><span class="ic" style="animation-delay:-.7s">📍</span><h4>Calcule o frete</h4><p>Digite seu CEP e veja o valor para sua região.</p></div>
       <div class="step reveal"><span class="ic" style="animation-delay:-1.4s">💬</span><h4>Envie pelo WhatsApp</h4><p>Seu pedido vai pronto, com itens, frete e total.</p></div>
-      <div class="step reveal"><span class="ic" style="animation-delay:-2.1s">📦</span><h4>Receba em casa</h4><p>Pague via Pix ou débito e enviamos para você.</p></div>
+      <div class="step reveal"><span class="ic" style="animation-delay:-2.1s">📦</span><h4>Receba em casa</h4><p>Pague via Pix ou cartão e enviamos para você.</p></div>
     </div>
   </div>
 </section>
@@ -516,7 +516,7 @@ body.matrix{--azul:#00ff88;--azul2:#7dffb8}
     <div class="title reveal"><h2 class="orb-font">Formas de <span>pagamento</span></h2></div>
     <div class="pay reveal">
       <div>💠 Pix</div>
-      <div>💳 Cartão de débito</div>
+      <div>💳 Cartão (débito ou crédito à vista)</div>
     </div>
   </div>
 </section>
@@ -563,7 +563,7 @@ body.matrix{--azul:#00ff88;--azul2:#7dffb8}
     <div class="total"><span>Total</span><span id="total">R$ 0,00</span></div>
     <div class="paysel">
       <input type="radio" name="pg" id="pgPix" value="Pix" checked><label for="pgPix">💠 Pix</label>
-      <input type="radio" name="pg" id="pgDeb" value="Débito"><label for="pgDeb">💳 Débito</label>
+      <input type="radio" name="pg" id="pgDeb" value="Cartão"><label for="pgDeb">💳 Cartão</label>
     </div>
     <button class="btn btn-main pay-btn" id="checkout">💠 Pagar com Pix</button>
     <p class="hint">Atendimento das 13h às 19h</p>
@@ -586,11 +586,11 @@ body.matrix{--azul:#00ff88;--azul2:#7dffb8}
       <p class="pay-obs">Depois de pagar, toque no botão acima e envie o comprovante no WhatsApp. Seu pedido entra na fila de impressão assim que o pagamento for confirmado.</p>
     </div>
     <div id="payDeb" hidden>
-      <h3>💳 Pagamento no débito</h3>
+      <h3>💳 Pagamento com cartão</h3>
       <p class="pay-ped">Pedido <b id="pedNum2"></b></p>
       <div class="pay-valor" id="debValor"></div>
-      <p class="pay-dica">Você será levado ao <b>Mercado Pago</b>, em ambiente seguro, para pagar com seu cartão de débito. Depois volta automaticamente para cá.</p>
-      <button class="btn btn-main pay-ok" id="debMP">💳 Pagar com cartão de débito</button>
+      <p class="pay-dica">Você será levado ao <b>Mercado Pago</b>, em ambiente seguro, para pagar com seu cartão (crédito à vista ou débito virtual). Depois volta automaticamente para cá.</p>
+      <button class="btn btn-main pay-ok" id="debMP">💳 Pagar com cartão</button>
       <div class="pf-erro" id="debErro"></div>
       <button class="btn btn-whats pay-ok" id="debZap" hidden>📲 Receber link de pagamento pelo WhatsApp</button>
       <p class="pay-obs">Prefere pagar agora? Escolha <b>Pix</b> no carrinho, é na hora.</p>
@@ -3019,7 +3019,7 @@ function renderProdutos(){
         ${p.cores?`<div class="cores-lbl">Cor: <b>${c0.nome}</b></div>
         <div class="swatches">${p.cores.map((c,j)=>`<button class="sw${j?"":" on"}" data-cor="${c.nome}" title="${c.nome}" aria-label="Cor ${c.nome}" style="background:${c.hex}"></button>`).join("")}</div>`:""}
         <div class="price-row">
-          <div class="price">${brl(p.preco)}<small>no Pix ou débito</small></div>
+          <div class="price">${brl(p.preco)}<small>no Pix ou cartão</small></div>
           <button class="add" data-id="${p.id}">+ Carrinho</button>
         </div>
       </div>
@@ -3071,7 +3071,7 @@ function atualizar(){
   $("#subtotal").textContent=brl(sub);
   $("#freteVal").textContent = frete ? `${brl(frete.valor)} (${frete.regiao})` : "informe o CEP";
   $("#total").textContent=brl(sub + (frete&&ks.length?frete.valor:0));
-  $("#checkout").textContent = !ks.length ? "Adicione um produto" : !frete ? "Informe o CEP para continuar" : (document.querySelector('input[name="pg"]:checked').value==="Pix"?"💠 Pagar com Pix":"💳 Pagar com débito");
+  $("#checkout").textContent = !ks.length ? "Adicione um produto" : !frete ? "Informe o CEP para continuar" : (document.querySelector('input[name="pg"]:checked').value==="Pix"?"💠 Pagar com Pix":"💳 Pagar com cartão");
   $("#checkout").disabled = !ks.length || !frete;
 }
 function zap(texto){ return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`; }
@@ -3137,7 +3137,7 @@ $("#checkout").onclick=()=>{
     const code=pixPayload(pedido.total,pedido.num); $("#pixCode").value=code;
     const qr=qrcode(0,"M"); qr.addData(code); qr.make(); $("#pixQr").innerHTML=qr.createImgTag(6,0);
     $("#pixCopy").textContent="Copiar"; $("#pixCopy").classList.remove("ok");
-  } else { $("#debZap").hidden=true; $("#debErro").textContent=""; $("#debMP").disabled=false; $("#debMP").textContent="💳 Pagar com cartão de débito"; }
+  } else { $("#debZap").hidden=true; $("#debErro").textContent=""; $("#debMP").disabled=false; $("#debMP").textContent="💳 Pagar com cartão"; }
   abrirPagamento(true);
 };
 $("#pixCopy").onclick=async()=>{
@@ -3151,7 +3151,7 @@ function concluir(status){
   mostrarAviso("🎉 Pedido enviado!",`Pedido ${pedido.num} enviado para a Guerra 3D. Obrigado pela compra!`);
 }
 $("#pixPaguei").onclick=()=>concluir("Fiz o pagamento via *Pix* ✅ (segue o comprovante)");
-$("#debZap").onclick=()=>concluir("Quero pagar no *débito*. Pode me enviar o link de pagamento?");
+$("#debZap").onclick=()=>concluir("Quero pagar no *cartão*. Pode me enviar o link de pagamento?");
 // ----- Débito pelo Mercado Pago -----
 const FN="/.netlify/functions/";
 $("#debMP").onclick=async()=>{
@@ -3187,13 +3187,13 @@ $("#debMP").onclick=async()=>{
     abrirMP(`<h3>⏳ Pagamento ainda não confirmado</h3><p class="pay-dica">Ainda não conseguimos confirmar o pagamento do pedido <b>${pd.num}</b>. Se o valor saiu da sua conta, fale com a gente no WhatsApp.</p>`);
     return;
   }
-  pd.pg="Débito (Mercado Pago)"; pedido=pd;
+  pd.pg="Cartão (Mercado Pago)"; pedido=pd;
   carrinho={}; salvar(); atualizar(); try{ localStorage.removeItem("g3d_pedido_mp"); }catch(e){}
   abrirMP(`<h3>🎉 Pagamento aprovado!</h3><p class="pay-ped">Pedido <b>${pd.num}</b></p><div class="pay-valor">${brl(v.valor)}</div>
     <p class="pay-dica">Último passo: toque abaixo para enviar seu pedido e endereço para a Guerra 3D.</p>
     <button class="btn btn-whats pay-ok" id="mpEnviar">📲 Enviar pedido no WhatsApp</button>`);
   if(window.G3Dconfete) G3Dconfete();
-  $("#mpEnviar").onclick=()=>{ window.open(zap(msgPedido(pd,`Paguei no *débito* pelo Mercado Pago ✅ (pagamento nº ${v.id}, aprovado)`)),"_blank"); $("#mpModal").classList.remove("on"); };
+  $("#mpEnviar").onclick=()=>{ window.open(zap(msgPedido(pd,`Paguei no *cartão* pelo Mercado Pago ✅ (pagamento nº ${v.id}, aprovado)`)),"_blank"); $("#mpModal").classList.remove("on"); };
 })();
 function mostrarAviso(t,x){ const e=$("#egg"); e.innerHTML=`<b>${t}</b>${x}`; e.classList.add("on"); setTimeout(()=>e.classList.remove("on"),4200); }
 

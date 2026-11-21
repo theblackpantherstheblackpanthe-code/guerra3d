@@ -23,7 +23,7 @@ export default async (req) => {
     external_reference: num,
     statement_descriptor: "GUERRA3D",
     payer: { name: String(b.nome||"").slice(0,80) },
-    payment_methods: { excluded_payment_types: [{ id:"credit_card" }, { id:"ticket" }, { id:"atm" }], installments: 1 },
+    payment_methods: { excluded_payment_types: [{ id:"ticket" }, { id:"atm" }], installments: 1, default_installments: 1 },
     back_urls: { success: `${site}/?mp=ok`, pending: `${site}/?mp=pendente`, failure: `${site}/?mp=falhou` },
     auto_return: "approved",
     metadata: { pedido: num, endereco: b.endereco||null, cep: b.cep||"" },
