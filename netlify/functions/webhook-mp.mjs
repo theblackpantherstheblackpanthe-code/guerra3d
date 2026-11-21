@@ -47,8 +47,13 @@ CEP ${cep}
 
 🏷️ Etiqueta: ${site}/#etiqueta=${etq}`;
 
+    // Guarda o pedido para o painel /pedidos (funciona mesmo sem WhatsApp)
+    try { await getStore("pedidos").setJSON(`${Date.now()}-${id}`, { quando:new Date().toISOString(), pedido:m.pedido, mp:p.id,
+      total:p.transaction_amount, tipo:tipoPg, itens:String(m.itens||"").split(" | ").filter(Boolean),
+      nome:m.nome, linha1:m.linha1, linha2:m.linha2, cep, etiqueta:`${site}/#etiqueta=${etq}` }); } catch (e) { console.log("blob pedidos", e?.message); }
+
     const key = (globalThis.Netlify?.env.get("CALLMEBOT_KEY")) || process.env.CALLMEBOT_KEY;
-    if (!key) { console.log("CALLMEBOT_KEY não configurada", texto); return ok; }
+    if (!key) { if (store) { try { await store.set(id, "sem-whats"); } catch {} } return ok; }
     const z = await fetch(`https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(LOJA_WHATS)}&text=${encodeURIComponent(texto)}&apikey=${encodeURIComponent(key)}`);
     console.log("CallMeBot", z.status);
     if (z.ok && store) { try { await store.set(id, new Date().toISOString()); } catch {} }
