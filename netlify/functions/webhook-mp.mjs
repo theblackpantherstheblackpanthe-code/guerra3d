@@ -52,6 +52,15 @@ CEP ${cep}
       total:p.transaction_amount, tipo:tipoPg, itens:String(m.itens||"").split(" | ").filter(Boolean),
       nome:m.nome, linha1:m.linha1, linha2:m.linha2, cep, etiqueta:`${site}/#etiqueta=${etq}` }); } catch (e) { console.log("blob pedidos", e?.message); }
 
+    // Telegram (se configurado)
+    const tg = (globalThis.Netlify?.env.get("TELEGRAM_TOKEN")) || process.env.TELEGRAM_TOKEN;
+    if (tg) { try {
+      const chat = await getStore("config").get("telegram_chat");
+      if (chat) { const t = await fetch(`https://api.telegram.org/bot${tg}/sendMessage`, { method:"POST", headers:{ "content-type":"application/json" },
+        body: JSON.stringify({ chat_id: chat, text: texto.replace(/\*/g, ""), disable_web_page_preview: true }) });
+        console.log("Telegram", t.status); }
+    } catch (e) { console.log("telegram erro", e?.message); } }
+
     const key = (globalThis.Netlify?.env.get("CALLMEBOT_KEY")) || process.env.CALLMEBOT_KEY;
     if (!key) { if (store) { try { await store.set(id, "sem-whats"); } catch {} } return ok; }
     const z = await fetch(`https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(LOJA_WHATS)}&text=${encodeURIComponent(texto)}&apikey=${encodeURIComponent(key)}`);
