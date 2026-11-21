@@ -16,6 +16,7 @@ export default async (req) => {
   if (!itens.length || !reg) return json({ erro:"Carrinho ou CEP inválido." }, 400);
   itens.push({ id:"frete", title:`Frete (${reg})`, quantity:1, unit_price:FRETE[reg], currency_id:"BRL" });
 
+  const e = b.endereco || {};
   const num = String(b.num||"").replace(/[^A-Z0-9]/gi,"").slice(0,20) || ("G3D"+Date.now().toString(36).toUpperCase());
   const site = new URL(req.url).origin;
   const pref = {
@@ -26,7 +27,13 @@ export default async (req) => {
     payment_methods: { excluded_payment_types: [{ id:"ticket" }, { id:"atm" }], installments: 1, default_installments: 1 },
     back_urls: { success: `${site}/?mp=ok`, pending: `${site}/?mp=pendente`, failure: `${site}/?mp=falhou` },
     auto_return: "approved",
-    metadata: { pedido: num, endereco: b.endereco||null, cep: b.cep||"" },
+    notification_url: `${site}/.netlify/functions/webhook-mp`,
+    metadata: {
+      pedido: num, site,
+      nome: String(e.nome||"").slice(0,80), linha1: String(e.linha1||"").slice(0,120), linha2: String(e.linha2||"").slice(0,120),
+      cep: String(b.cep||"").replace(/\D/g,"").slice(0,8), regiao: reg,
+      itens: itens.filter(i=>i.id!=="frete").map(i=>`${i.quantity}x ${i.title}`).join(" | "),
+    },
   };
   const r = await fetch("https://api.mercadopago.com/checkout/preferences", {
     method:"POST", headers:{ "Authorization":`Bearer ${token()}`, "Content-Type":"application/json" }, body: JSON.stringify(pref),
