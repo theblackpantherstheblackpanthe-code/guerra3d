@@ -2,7 +2,7 @@ import { PRODUTOS, FRETE, regiaoPorCep, json, token } from "../lib/loja.mjs";
 
 // Cria o pagamento no Mercado Pago (Checkout Pro) e devolve o link para o cliente pagar.
 export default async (req) => {
-  if (req.method !== "POST") return json({ ok:true, pronto: !!token() });
+  if (req.method !== "POST") return json({ ok:true, pronto: !!token(), modo: !token() ? "sem token" : (token().startsWith("TEST-") ? "teste" : "producao") });
   if (!token()) return json({ erro:"Pagamento no cartão ainda não configurado." }, 503);
   let b; try { b = await req.json(); } catch { return json({ erro:"Pedido inválido." }, 400); }
 
